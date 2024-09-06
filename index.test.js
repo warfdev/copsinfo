@@ -1,6 +1,6 @@
 (async () => {
     
-    const { CopsInfo, ServerInfo } = require("./index");
+    const { CopsInfo, ServerInfo } = require("copsinfo");
     
     
     try {
