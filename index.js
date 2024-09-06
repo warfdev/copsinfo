@@ -106,6 +106,57 @@ class Player {
         }
         return this.data.stats.seasonal_stats.reduce((acc, season) => acc + season.casual?.k || 0, 0);
     }
+
+    getCustomDeaths() {
+        if (!this.data.stats?.seasonal_stats) {
+            return "Sonuç bulunamadı";
+        }
+        return this.data.stats.seasonal_stats.reduce((acc, season) => acc + season.custom?.d || 0, 0);
+    }
+
+    getCasualDeaths() {
+        if (!this.data.stats?.seasonal_stats) {
+            return "Sonuç bulunamadı";
+        }
+        return this.data.stats.seasonal_stats.reduce((acc, season) => acc + season.casual?.d || 0, 0);
+    }
+
+
+    getRankedKD() {
+        const kills = this.getRankedKills();
+        const deaths = this.getRankedDeaths();
+
+        if (kills === "Sonuç bulunamadı" || deaths === "Sonuç bulunamadı") {
+            return "Ranked KD hesaplanamadı";
+        }
+
+        if (deaths == 0) {
+            return kills > 0 ? Infinity : 0;
+        }
+
+        return (kills / deaths).toFixed(2); // KD oranını 2 ondalık basamakla döner
+    }
+
+    getNormalKD() {
+        const customKills = this.getCustomKills();
+        const customDeaths = this.getCustomDeaths();
+        const casualKills = this.getCasualKills();
+        const casualDeaths = this.getCasualDeaths();
+
+        if (customKills === "Sonuç bulunamadı" || customDeaths === "Sonuç bulunamadı" ||
+            casualKills === "Sonuç bulunamadı" || casualDeaths === "Sonuç bulunamadı") {
+            return "Normal KD hesaplanamadı";
+        }
+
+        const totalKills = customKills + casualKills;
+        const totalDeaths = customDeaths + casualDeaths;
+
+        if (totalDeaths == 0) {
+            return totalKills > 0 ? Infinity : 0;
+        }
+
+        return (totalKills / totalDeaths).toFixed(2); // KD oranını 2 ondalık basamakla döner
+    }
 }
 
 // server
