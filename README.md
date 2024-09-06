@@ -40,6 +40,8 @@ npm install copsinfo@latest
         console.log("Ranked Losses:", player.getRankedLosses());
         console.log("Total Custom Kills:", player.getCustomKills());
         console.log("Total Casual Kills:", player.getCasualKills());
+        console.log("Normal KDA:", player.getNormalKD());
+        console.log("Ranked KDA:", player.getRankedKD());
 
 
         // Sunucu bilgileri fonksiyonları örnek kullanım:
