@@ -13,16 +13,14 @@ npm install copsinfo@latest
 ```js
 (async () => {
     
-    const { CopsInfo, ServerInfo } = require("copsinfo");
+    const { CopsInfo, ServerInfo } = require("./index");
     
     
     try {
         const copsinfo = new CopsInfo();
-        const player = await copsinfo.getPlayer("IVyte");
+        const player = await copsinfo.getPlayer("ivyte");
 
         // Oyuncu fonksiyonları örnek kullanım:
-        // player functions example usage:
-        
         console.log("User ID:", player.getUserID());
         console.log("Username:", player.getUsername());
         console.log("Player Level:", player.getPlayerLevel());
@@ -42,11 +40,13 @@ npm install copsinfo@latest
         console.log("Total Casual Kills:", player.getCasualKills());
         console.log("Normal KDA:", player.getNormalKD());
         console.log("Ranked KDA:", player.getRankedKD());
-
+        console.log("Kalan XP:", player.getNextLevelXP(1));
+        console.log("Profile Picture ID:", player.getIconID());
+        console.log("is blocked friend requests?:", player.isBlockedFriendReqs()); // returns boolean
+        console.log("is blocked clan requests?:", player.isBlockedClanReqs()); // returns boolean
+        console.log("is banned?:", player.isBanned());
 
         // Sunucu bilgileri fonksiyonları örnek kullanım:
-        // Servers Info functions example usage:
-        
         const serverInfo = new ServerInfo();
 
         const serverStatus = await serverInfo.getServerStatus(8);  // Turkey/TR-1
