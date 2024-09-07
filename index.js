@@ -16,12 +16,12 @@ class CopsInfo {
     async getPlayer(username) {
         try {
             const response = await axios.get(`https://1-44-1.prod.copsapi.criticalforce.fi/api/public/profile?usernames=${username}`);
-            if (response.data.length === 0) {
+            if (response.data.length === 0 || response.data === "Error 53") {
                 throw new Error("Kullanıcı Bulunamadı");
             }
             return new Player(response.data[0]);
         } catch (error) {
-            console.error("Hata:", error.message);
+            console.error("Hata: ", error.message);
             return null;
         }
     }
@@ -49,8 +49,13 @@ class Player {
         return this.data.basicInfo?.playerLevel?.current_xp || "Sonuç bulunamadı";
     }
 
-    getNextLevelXP() {
-        return this.data.basicInfo?.playerLevel?.next_level_xp || "Sonuç bulunamadı";
+    getNextLevelXP(option = 0) {
+        if (option == 0) {
+            return this.data.basicInfo?.playerLevel?.next_level_xp || "Sonuç bulunamadı";
+        } else if (option == 1) {
+            const w = this.data.basicInfo?.playerLevel?.next_level_xp - this.data.basicInfo?.playerLevel?.current_xp;
+            return w || "Sonuç bulunamadı";
+        } else return "Hatalı opsiyon, Dogru opsiyonlar <player>.getNextLevelXP(0 || 1)";
     }
 
     getFriendStatus() {
@@ -156,6 +161,22 @@ class Player {
         }
 
         return (totalKills / totalDeaths).toFixed(2); // KD oranını 2 ondalık basamakla döner
+    }
+    
+    getIconID() {
+      return this.data.basicInfo?.iconID || "Sonuç bulunamadı";
+    }
+    
+    isBlockedFriendReqs() {
+      return this.data.userSettings?.blockFriendRequests || "Sonuç bulunamadı";
+    }
+    
+    isBlockedClanReqs() {
+      return this.data.userSettings?.block_clan_requests || "Sonuç bulunamadı";
+    }
+    
+    isBanned() {
+      return this.data.ban;
     }
 }
 
