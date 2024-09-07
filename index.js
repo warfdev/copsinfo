@@ -1,6 +1,6 @@
 /*
             Critical Ops API Wrapper - Node.js
-                        v1.0.0
+                        v1.0.4
         
         - Türkçe, C-OPS oyunu içerisinden oyuncu ve sunucu verisi çekme modülüdür.
 
