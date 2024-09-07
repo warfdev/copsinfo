@@ -18,7 +18,7 @@ npm install copsinfo@latest
     
     try {
         const copsinfo = new CopsInfo();
-        const player = await copsinfo.getPlayer("ivyte");
+        const player = await copsinfo.getPlayer("9Mocha");
 
         // Oyuncu fonksiyonları örnek kullanım:
         console.log("User ID:", player.getUserID());
